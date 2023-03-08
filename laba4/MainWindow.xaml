@@ -6,5 +6,12 @@
         xmlns:local="clr-namespace:laba4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+    <Grid>
+        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="282,82,0,0" VerticalAlignment="Top" Height="66" Width="118" Click="Button_Click"/>
+        <Image HorizontalAlignment="Left" Height="222" Margin="578,82,0,0" VerticalAlignment="Top" Width="203" RenderTransformOrigin="0.515,0.501"/>
+        <DataGrid x:Name="MainGrid" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=goods}" HorizontalAlignment="Left" Height="261" Margin="36,18,0,0" VerticalAlignment="Top" Width="231"/>
+        <TextBox x:Name="SearchText" HorizontalAlignment="Left" Margin="92,302,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="99,334,0,0" VerticalAlignment="Top" Height="49" Width="105"/>
+        <Button x:Name="ChangeButton" Content="Button" HorizontalAlignment="Left" Margin="311,180,0,0" VerticalAlignment="Top" Height="37" Width="60" Click="ChangeButton_Click"/>
+    </Grid>
 </Window>
