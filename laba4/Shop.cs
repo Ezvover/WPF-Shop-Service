@@ -8,5 +8,6 @@ namespace laba4
 {
     internal class Shop
     {
+
     }
 }
