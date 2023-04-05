@@ -13,7 +13,8 @@
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="99,334,0,0" VerticalAlignment="Top" Height="49" Width="105" Click="SearchButton_Click"/>
         <Button x:Name="ChangeButton" Content="Button" HorizontalAlignment="Left" Margin="311,180,0,0" VerticalAlignment="Top" Height="37" Width="60" Click="ChangeButton_Click"/>
         <TextBox x:Name="SearchText2" HorizontalAlignment="Left" Margin="203,301,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="626,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.265,0.259" Click="Button_Click_1"/>
+        <Button Content="Соритровка" HorizontalAlignment="Left" Margin="564,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.265,0.259" Click="Button_Click_1" Width="146"/>
         <ComboBox x:Name="FilterBOx" HorizontalAlignment="Left" Margin="577,82,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="AddButton" Content="Button" HorizontalAlignment="Left" Margin="608,361,0,0" VerticalAlignment="Top" Height="34" Width="89" Click="Button_Click_2"/>
     </Grid>
 </Window>

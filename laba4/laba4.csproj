@@ -7,4 +7,17 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Strings.en-US.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator></Generator>
+      <CustomToolNamespace>laba4</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings.ru-RU.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator></Generator>
+      <CustomToolNamespace>laba4</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

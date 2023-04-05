@@ -33,6 +33,8 @@ namespace laba4
             }
 
             textBox.Text = $"ID: {goods.Id}\nName: {goods.Name}\nDesc: {goods.Desc}\nCategory: {goods.Category}\nRate: {goods.Rate}\nPrice: {goods.Price}\nAmount: {goods.Amount}\nOther: {goods.Other}";
+            Image image = FindName("Image") as Image;
+            image.Source = new BitmapImage(new Uri($"C:\\Users\\Vover\\Desktop\\task\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\{goods.Name}.jpg", UriKind.RelativeOrAbsolute));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

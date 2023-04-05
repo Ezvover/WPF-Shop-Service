@@ -39,6 +39,14 @@ namespace laba4
             }
             var strList2 = strList.Distinct();
             FilterBOx.ItemsSource = strList2;
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
+            using (FileStream fs = new FileStream("addGoods.xml", FileMode.OpenOrCreate))
+            {
+                goodsList.Add(xmlSerializer.Deserialize(fs) as Goods);
+            }
+
+            //DeleteButton.Content = Properties.Resources.Delete;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -109,6 +117,13 @@ namespace laba4
                 }
             }
             MainGrid.ItemsSource = tempList;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            AddWindow window = new AddWindow();
+            window.Show();
+            
         }
     }
 }
