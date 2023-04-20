@@ -29,8 +29,7 @@ namespace laba4
         public MainWindow()
         {
             InitializeComponent();
-            goodsList.Add(new Goods("0", "milk", "good", "eat", 5.0, 30, 24, "other"));
-            goodsList.Add(new Goods("1", "apple", "bad", "phone", 3.0, 20, 16, "abc"));
+            Deserializatioin();
             MainGrid.ItemsSource = goodsList;
             List<string> strList = new List<string>();
             for (int i = 0; i < goodsList.Count; i++) 
@@ -41,12 +40,51 @@ namespace laba4
             FilterBOx.ItemsSource = strList2;
 
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream fs = new FileStream("addGoods.xml", FileMode.OpenOrCreate))
+           
+            using (FileStream stream = new FileStream("LastGood.xml", FileMode.OpenOrCreate))
             {
-                goodsList.Add(xmlSerializer.Deserialize(fs) as Goods);
+
+                xmlSerializer.Serialize(stream, goodsList.Last());
+
             }
 
-            //DeleteButton.Content = Properties.Resources.Delete;
+            Serialization();
+        }
+
+        public void Serialization()
+        {
+            var rootFolder = AppDomain.CurrentDomain.BaseDirectory;
+            var filesToDelete = Directory.GetFiles(rootFolder, "Good*.xml");
+
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
+            for (int i = 0; i < goodsList.Count; i++)
+            {
+                using (FileStream stream = new FileStream($"Good{i}.xml", FileMode.OpenOrCreate))
+                {
+                    xmlSerializer.Serialize(stream, goodsList[i]);
+                }
+            }
+        }
+
+        public void Deserializatioin()
+        {
+            var rootFolder = AppDomain.CurrentDomain.BaseDirectory;
+            var files = Directory.GetFiles(rootFolder, "Good*.xml");
+
+            foreach (var file in files)
+            {
+                var serializer = new XmlSerializer(typeof(Goods));
+                using (var stream = File.OpenRead(file))
+                {
+                    var good = (Goods)serializer.Deserialize(stream);
+                    goodsList.Add(good);
+                }
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -62,28 +100,11 @@ namespace laba4
             }
             MainGrid.ItemsSource = goodsList;
         }
-
-        private void ChangeButton_Click(object sender, RoutedEventArgs e)
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream stream = new FileStream("goods.xml", FileMode.OpenOrCreate))
-            {
-                foreach (Goods item in goodsList)
-                {
-                    xmlSerializer.Serialize(stream, item);
-                }
-            }
-
-            Goods g = MainGrid.SelectedItem as Goods;
-            EditWindow edit = new EditWindow(g.Id);
-            edit.ShowDialog();
-        }
-        
         private void MainGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedObject = MainGrid.SelectedItem as Goods;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream stream = new FileStream($"goodsTemp.xml", FileMode.OpenOrCreate))
+            using (FileStream stream = new FileStream($"TempGood.xml", FileMode.OpenOrCreate))
             {
                 xmlSerializer.Serialize(stream, selectedObject);
             }
@@ -124,6 +145,19 @@ namespace laba4
             AddWindow window = new AddWindow();
             window.Show();
             
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Serialization();
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainGrid.ItemsSource = null;
+            goodsList.Clear();
+            Deserializatioin();
+            MainGrid.ItemsSource = goodsList;
         }
     }
 }

@@ -28,8 +28,27 @@ namespace laba4
             InitializeComponent();
         }
 
+        List<Goods> goodsList = new List<Goods>();
+        int freeId = 0;
+
         public void ToClass()
         {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
+            using (FileStream fs = new FileStream("LastGood.xml", FileMode.OpenOrCreate))
+            {
+                goodsList.Add(xmlSerializer.Deserialize(fs) as Goods);
+            }
+
+            var sortedItems = goodsList.OrderBy(item => item.Id);
+
+            foreach (var item in sortedItems)
+            {
+                freeId = int.Parse(item.Id);
+            }
+
+            freeId++;
+
+            goods.Id = freeId.ToString();
             goods.Name = NameTextBox.Text;
             goods.Desc = DescTextBox.Text;
             goods.Category = CategoryTextBox.Text;
@@ -46,7 +65,7 @@ namespace laba4
         {
             ToClass();
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream stream = new FileStream("addGoods.xml", FileMode.OpenOrCreate))
+            using (FileStream stream = new FileStream($"Good{freeId}.xml", FileMode.OpenOrCreate))
             {
                 xmlSerializer.Serialize(stream, goods);
             }

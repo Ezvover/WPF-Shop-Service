@@ -5,19 +5,20 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Strings.en-US.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Generator></Generator>
-      <CustomToolNamespace>laba4</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Strings.ru-RU.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Generator></Generator>
-      <CustomToolNamespace>laba4</CustomToolNamespace>
-    </EmbeddedResource>
+    <Compile Remove="EditWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Strings.en-US.resx" />
+    <EmbeddedResource Remove="Strings.ru-RU.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="EditWindow.xaml" />
   </ItemGroup>
 
 </Project>

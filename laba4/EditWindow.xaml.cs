@@ -21,10 +21,6 @@ namespace laba4
     /// </summary>
     public partial class EditWindow : Window
     {
-        /*public EditWindow()
-        {
-            InitializeComponent();
-        }*/
         public EditWindow(string id)
         {
             InitializeComponent();

@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="DeleteButton">Удалить</v:String>
+    <v:String x:Key="SearchButton">Поиск</v:String>
+    <v:String x:Key="ChangeButton">Изменить</v:String>
+    <v:String x:Key="AddButton">Добавить</v:String>
+    <v:String x:Key="StartPrice">Начальная цена</v:String>
+    <v:String x:Key="EndPrice">Конечная цена</v:String>
+    <v:String x:Key="SortButton">Сортировка</v:String>
+    <v:String x:Key="SaveButton">Сохранить</v:String>
+</ResourceDictionary>

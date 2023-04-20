@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:laba4"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="111,315,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        Title="Window1" Height="450" Width="756">
+    <Grid Margin="0,0,148,0">
+        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="111,315,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="83,109,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="115" Height="155"/>
-        <Image x:Name="Image" Source="C:\Users\Vover\Desktop\task\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\img0.jpg" HorizontalAlignment="Left" Height="168" Margin="366,115,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.547,0.599"/>
-
+        <Image x:Name="Image" Source="C:\Users\Vover\Desktop\task\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\img0.jpg" HorizontalAlignment="Left" Height="168" Margin="366,115,0,0" VerticalAlignment="Top" Width="228" RenderTransformOrigin="0.547,0.599"/>
     </Grid>
 </Window>
