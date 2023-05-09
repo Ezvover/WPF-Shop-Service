@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:laba4"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="756">
-    <Grid Margin="0,0,148,0">
-        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="111,315,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="83,109,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="115" Height="155"/>
-        <Image x:Name="Image" Source="C:\Users\Vover\Desktop\task\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\img0.jpg" HorizontalAlignment="Left" Height="168" Margin="366,115,0,0" VerticalAlignment="Top" Width="228" RenderTransformOrigin="0.547,0.599"/>
+        Title="Window1" Height="450" Width="608">
+    <Window.Resources>
+        <FrameworkElement x:Key="KinectCursor" Cursor="/Normal.cur"/>
+        <ImageBrush x:Key="CommonImBrush" ViewportUnits="Absolute" Viewport="0 0 16 16" TileMode="Tile" ImageSource="images/SaveAs.png" Opacity="1.0"></ImageBrush>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource AppBackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="111*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="CloseButtonWin1" Content="{DynamicResource CloseButtonWin1}" HorizontalAlignment="Left" Margin="51,290,0,0" VerticalAlignment="Top" Click="Button_Click" Height="55" Width="454"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="51,81,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="216" Height="180" FontSize="14"/>
+        <Image x:Name="Image" Source="C:\Users\Vover\Desktop\task\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\img0.jpg" HorizontalAlignment="Left" Height="181" Margin="291,81,0,0" VerticalAlignment="Top" Width="207" RenderTransformOrigin="0.547,0.599"/>
     </Grid>
 </Window>

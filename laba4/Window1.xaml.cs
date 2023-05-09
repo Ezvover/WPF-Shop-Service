@@ -32,20 +32,28 @@ namespace laba4
                 goods = (xmlSerializer.Deserialize(stream) as Goods);
             }
 
-            textBox.Text = $"ID: {goods.Id}\nName: {goods.Name}\nDesc: {goods.Desc}\nCategory: {goods.Category}\nRate: {goods.Rate}\nPrice: {goods.Price}\nAmount: {goods.Amount}\nOther: {goods.Other}";
+            try
+            {
+                textBox.Text = $"ID/ИД: {goods.Id}\nName/Имя: {goods.Name}\nDesc/Описание: {goods.Desc}\nCategory/Категория: {goods.Category}\nRate/Рейтинг: {goods.Rate}\nPrice/Цена: {goods.Price}\nAmount/Цена: {goods.Amount}\nOther/Прочее: {goods.Other}";
+            }
+            catch (Exception ex)
+            {
+
+            }
             Image image = FindName("Image") as Image;
             try
             {
-                image.Source = new BitmapImage(new Uri($"C:\\Users\\Vover\\Desktop\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\{goods.Name}.jpg", UriKind.RelativeOrAbsolute));
+                image.Source = new BitmapImage(new Uri($"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\{goods.Name}.jpg", UriKind.RelativeOrAbsolute));
             }
             catch
             {
-                image.Source = new BitmapImage(new Uri($"C:\\Users\\Vover\\Desktop\\task\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\img0.jpg", UriKind.RelativeOrAbsolute));
+                image.Source = new BitmapImage(new Uri($"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\img0.jpg", UriKind.RelativeOrAbsolute));
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            File.Delete("TempGood.xml");
             this.Close();
         }
     }

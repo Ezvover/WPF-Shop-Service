@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -64,10 +65,18 @@ namespace laba4
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             ToClass();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream stream = new FileStream($"Good{freeId}.xml", FileMode.OpenOrCreate))
+            if ((goods.Rate < 0) || (goods.Price < 0) || (goods.Amount < 0))
             {
-                xmlSerializer.Serialize(stream, goods);
+                MessageBox.Show("Одно из значений отрицательно");
+                File.Delete("LastGood.xml");
+            }
+            else
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
+                using (FileStream stream = new FileStream($"Good{freeId}.xml", FileMode.OpenOrCreate))
+                {
+                    xmlSerializer.Serialize(stream, goods);
+                }
             }
         }
     }
