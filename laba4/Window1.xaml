@@ -11,7 +11,7 @@
         <ImageBrush x:Key="CommonImBrush" ViewportUnits="Absolute" Viewport="0 0 16 16" TileMode="Tile" ImageSource="images/SaveAs.png" Opacity="1.0"></ImageBrush>
     </Window.Resources>
 
-    <Grid Background="{StaticResource AppBackgroundBrush}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="111*"/>
             <ColumnDefinition Width="20*"/>

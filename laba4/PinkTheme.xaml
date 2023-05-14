@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="Grid">
+        <Setter Property="Background" Value="Pink"/>
+    </Style>
+
+
+
+    <Style TargetType="Button">
+        <Setter Property="Foreground" Value="HotPink"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="HotPink"/>
+        <Setter Property="Padding" Value="10"/>
+    </Style>
+
+</ResourceDictionary>

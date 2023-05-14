@@ -4,17 +4,9 @@
              xmlns:local="clr-namespace:laba4"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
-            <FontFamily x:Key="AppFont">Arial</FontFamily>
-            <SolidColorBrush x:Key="AppBackgroundBrush" Color="DarkGray"/>
-            <Style TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
-                <Setter Property="FontSize" Value="14" />
-            </Style>
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="DarkMagenta"/>
-                <Setter Property="Foreground" Value="Black"/>
-            </Style>
+           
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="lang.xaml" />
             </ResourceDictionary.MergedDictionaries>

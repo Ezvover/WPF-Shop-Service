@@ -31,6 +31,13 @@ namespace laba4
         public MainWindow()
         {
             InitializeComponent();
+            string[] themeNames = { "Pink", "GrayShades" };
+            foreach (string name in themeNames)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = name;
+                ThemeComboBox.Items.Add(item);
+            }
             Deserializatioin();
             MainGrid.ItemsSource = goodsList;
             List<string> strList = new List<string>();
@@ -43,17 +50,25 @@ namespace laba4
 
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
 
-            using (FileStream stream = new FileStream("LastGood.xml", FileMode.OpenOrCreate))
+            try
+            {
+                using (FileStream stream = new FileStream("LastGood.xml", FileMode.OpenOrCreate))
+                {
+
+                    xmlSerializer.Serialize(stream, goodsList.Last());
+
+                }
+            }
+            catch
             {
 
-                xmlSerializer.Serialize(stream, goodsList.Last());
-
             }
+
 
             Serialization();
             Mouse.OverrideCursor = ((FrameworkElement)this.Resources["KinectCursor"]).Cursor;
 
-            App.LanguageChanged += LanguageChanged;
+       /*     App.LanguageChanged += LanguageChanged;
 
             CultureInfo currLang = App.Language;
 
@@ -67,10 +82,10 @@ namespace laba4
                 menuLang.IsChecked = lang.Equals(currLang);
                 menuLang.Click += ChangeLanguageClick;
                 menuLanguage.Items.Add(menuLang);
-            }
+            }*/
         }
 
-        private void LanguageChanged(Object sender, EventArgs e)
+    /*    private void LanguageChanged(Object sender, EventArgs e)
         {
             CultureInfo currLang = App.Language;
             foreach (MenuItem i in menuLanguage.Items)
@@ -91,6 +106,28 @@ namespace laba4
                     App.Language = lang;
                 }
             }
+
+        }*/
+
+        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedTheme = (ComboBoxItem)ThemeComboBox.SelectedItem;
+            var themeName = selectedTheme.Content.ToString();
+            var dictionaryName = themeName + "Theme.xaml";
+
+            var fontStyles = new ResourceDictionary();
+            fontStyles.Source = new Uri("FontStyles.xaml", UriKind.Relative);
+            var newDictionary = new ResourceDictionary();
+            newDictionary.MergedDictionaries.Add(fontStyles);
+
+            // Загружаем стили из файла темы и добавляем их в новый словарь ресурсов
+            var themeDictionary = new ResourceDictionary();
+            themeDictionary.Source = new Uri(dictionaryName, UriKind.Relative);
+            newDictionary.MergedDictionaries.Add(themeDictionary);
+
+            // Заменяем старый словарь ресурсов новым
+            Application.Current.Resources = newDictionary;
+
 
         }
 
