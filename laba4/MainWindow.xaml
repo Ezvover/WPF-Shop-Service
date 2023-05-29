@@ -5,65 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:laba4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="483" Width="978">
+        Title="MainWindow" Height="460" Width="978">
     <Window.Resources>
         <FrameworkElement x:Key="KinectCursor" Cursor="C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\Normal.cur"/>
         <ImageBrush x:Key="CommonImBrush" ViewportUnits="Absolute" Viewport="0 0 16 16" TileMode="Tile" ImageSource="images/SaveAs.png" Opacity="1.0"></ImageBrush>
-        <Style TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Button.Background" Value="DarkBlue" />
-                <Setter Property="Button.Foreground" Value="White" />
-                <Setter Property="Button.FontFamily" Value="Verdana" />
-                <Setter Property="Button.Margin" Value="10" />
-            </Style.Setters>
-            <Style.Triggers>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsMouseOver" Value="True" />
-                        <Condition Property="IsPressed" Value="True" />
-                    </MultiTrigger.Conditions>
-                    <MultiTrigger.Setters>
-                        <Setter Property="FontSize" Value="14" />
-                        <Setter Property="Foreground" Value="Red" />
-                    </MultiTrigger.Setters>
-                </MultiTrigger>
-                <EventTrigger RoutedEvent="Click">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:1" To="220" AutoReverse="True" />
-                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:1" To="80" AutoReverse="True" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
     <Grid x:Name="GridStyle" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="39*"/>
+            <ColumnDefinition Width="24*"/>
+            <ColumnDefinition Width="305*"/>
+            <ColumnDefinition Width="648*"/>
         </Grid.ColumnDefinitions>
-        <Menu Background="{x:Null}" Grid.ColumnSpan="2">
-            <!-- <MenuItem x:Name="menuLanguage" Header="{StaticResource m_menu_Language}" Height="21" Width="110" RenderTransformOrigin="0.612,0.75" /> -->
-            <ComboBox x:Name="ThemeComboBox" Width="120" SelectionChanged="ThemeComboBox_SelectionChanged"/>
+        <Menu Background="{x:Null}" Grid.ColumnSpan="3" Height="430" VerticalAlignment="Center" Margin="0,0,-26,0">
+            <MenuItem x:Name="menuLanguage" Header="{StaticResource m_menu_Language}" Height="21" Width="110" RenderTransformOrigin="0.612,0.75" />
         </Menu>
-        <Button x:Name="DeleteButton"  Content="{DynamicResource DeleteButton}" HorizontalAlignment="Left" Margin="161,346,0,0" VerticalAlignment="Top" Height="68" Width="132" Click="Button_Click" Grid.Column="1"/>
-        <DataGrid x:Name="MainGrid" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=goods}" HorizontalAlignment="Left" Height="293" Margin="10,34,0,0" VerticalAlignment="Top" Width="587" MouseDoubleClick="MainGrid_MouseDoubleClick" Grid.Column="1"/>
-        <TextBox x:Name="SearchText" HorizontalAlignment="Left" Margin="619,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="20"/>
-        <Button x:Name="SearchButton" Content="{DynamicResource SearchButton}" HorizontalAlignment="Left" Margin="627,167,0,0" VerticalAlignment="Top" Height="49" Width="104" Click="SearchButton_Click" Grid.Column="1"/>
-        <TextBox x:Name="SearchText2" HorizontalAlignment="Left" Margin="619,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Button Content="{DynamicResource SortButton}" HorizontalAlignment="Left" Margin="798,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.265,0.259" Click="Button_Click_1" Width="125" Height="48" Grid.Column="1"/>
-        <ComboBox x:Name="FilterBOx" HorizontalAlignment="Left" Margin="800,106,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Button x:Name="AddButton" Content="{DynamicResource AddButton}" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Height="65" Width="132" Click="Button_Click_2" Grid.Column="1"/>
-        <Label Content="{DynamicResource StartPrice}" HorizontalAlignment="Left" Margin="619,45,0,0" VerticalAlignment="Top" Grid.Column="1" Width="120"/>
-        <Label Content="{DynamicResource EndPrice}" HorizontalAlignment="Left" Margin="619,99,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Button x:Name="SaveButton" Content="{DynamicResource SaveButton}"  HorizontalAlignment="Left" Margin="311,348,0,0" VerticalAlignment="Top" Width="132" Height="66" Click="SaveButton_Click" Grid.Column="1"/>
-        <Button x:Name="UpdateButton" Content="{DynamicResource UpdateButton}" HorizontalAlignment="Left" Margin="465,348,0,0" VerticalAlignment="Top" Width="132" Height="66" Click="UpdateButton_Click" Grid.Column="1"/>
-        <Label Content="{DynamicResource SortButton2}" HorizontalAlignment="Left" Margin="798,68,0,0" VerticalAlignment="Top" Grid.Column="1" Width="120"/>
-        <Button x:Name="SearchButton2" Content="{DynamicResource SearchButton2}" HorizontalAlignment="Left" Margin="635,298,0,0" VerticalAlignment="Top" Height="49" Width="104" Grid.Column="1" Click="SearchButton2_Click"/>
-        <TextBox x:Name="SearchText3" HorizontalAlignment="Left" Margin="627,261,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Label Content="{DynamicResource PartText}" HorizontalAlignment="Left" Margin="615,230,0,0" VerticalAlignment="Top" Width="157" Grid.Column="1"/>
+        <Button Content="Select" Click="SelectButton_Click"  Grid.Column="1" Margin="270,372,616,0" Height="15" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Button Content="Up" Click="UpButton_Click" Grid.Column="1" Margin="270,348,616,0" Height="16" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Button Content="Down" Click="DownButton_Click" Grid.Column="1" Margin="270,394,616,0" Height="16" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Button Content="Edit"  Grid.Column="2" Margin="0,348,515,0" Click="Button_Click_3" Height="63" VerticalAlignment="Top" HorizontalAlignment="Right" Width="85"/>
+        <Button x:Name="DeleteButton"  Content="{DynamicResource DeleteButton}" HorizontalAlignment="Left" Margin="174,348,0,0" VerticalAlignment="Top" Height="63" Width="82" Click="Button_Click" Grid.Column="1"/>
+        <DataGrid x:Name="MainGrid" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=goods}" HorizontalAlignment="Left" Height="269" Margin="10,58,0,0" VerticalAlignment="Top" Width="587" MouseDoubleClick="MainGrid_MouseDoubleClick" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="SearchText" HorizontalAlignment="Left" Margin="325,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.Column="2" Height="20"/>
+        <Button x:Name="SearchButton" Content="{DynamicResource SearchButton}" HorizontalAlignment="Left" Margin="321,222,0,0" VerticalAlignment="Top" Height="49" Width="104" Click="SearchButton_Click" Grid.Column="2"/>
+        <TextBox x:Name="SearchText2" HorizontalAlignment="Left" Margin="325,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.Column="2"/>
+        <Button Content="{DynamicResource SortButton}" HorizontalAlignment="Left" Margin="494,223,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.265,0.259" Click="Button_Click_1" Width="107" Height="48" Grid.Column="2"/>
+        <ComboBox x:Name="FilterBOx" HorizontalAlignment="Left" Margin="494,147,0,0" VerticalAlignment="Top" Width="107" Grid.Column="2"/>
+        <Button x:Name="AddButton" Content="{DynamicResource AddButton}" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Height="65" Width="136" Click="Button_Click_2" Grid.Column="1"/>
+        <Label Content="{DynamicResource StartPrice}" HorizontalAlignment="Left" Margin="342,68,0,0" VerticalAlignment="Top" Grid.Column="2" Width="62"/>
+        <Label Content="{DynamicResource EndPrice}" HorizontalAlignment="Left" Margin="342,143,0,0" VerticalAlignment="Top" Width="62" Grid.Column="2"/>
+        <Button x:Name="UpdateButton" Content="{DynamicResource UpdateButton}" HorizontalAlignment="Left" Margin="159,348,0,0" Width="132" Click="UpdateButton_Click" Grid.Column="2" Height="63" VerticalAlignment="Top"/>
+        <Label Content="{DynamicResource SortButton2}" HorizontalAlignment="Left" Margin="529,68,0,0" VerticalAlignment="Top" Grid.Column="2" Width="37"/>
+        <Button x:Name="SearchButton2" Content="{DynamicResource SearchButton2}" HorizontalAlignment="Left" Margin="336,378,0,0" VerticalAlignment="Top" Height="30" Width="265" Grid.Column="2" Click="SearchButton2_Click"/>
+        <TextBox x:Name="SearchText3" HorizontalAlignment="Left" Margin="409,338,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
+        <Label Content="{DynamicResource PartText}" HorizontalAlignment="Left" Margin="433,301,0,0" VerticalAlignment="Top" Width="71" Grid.Column="2"/>
     </Grid>
 </Window>

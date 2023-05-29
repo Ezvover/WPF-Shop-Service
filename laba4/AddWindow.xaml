@@ -4,26 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:laba4"
+        xmlns:control = "clr-namespace:laba4" 
         mc:Ignorable="d"
-        Title="AddWindow" Height="450" Width="434">
-
+        Title="AddWindow" Height="450" Width="500">
     <Grid>
-        <TextBox x:Name="DescTextBox" HorizontalAlignment="Left" Margin="76,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="CategoryTextBox" HorizontalAlignment="Left" Margin="76,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="RateTextBox" HorizontalAlignment="Left" Margin="76,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="PriceTextBox" HorizontalAlignment="Left" Margin="76,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="AmountTextBox" HorizontalAlignment="Left" Margin="76,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="OtherTextBox" HorizontalAlignment="Left" Margin="76,386,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="AddButton" Content="{DynamicResource AddButton}" HorizontalAlignment="Left" Margin="251,133,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.721,0.595" Height="237" Width="150" Click="AddButton_Click"/>
-        <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Margin="76,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="nameLabel" Content="{DynamicResource nameLabel}" HorizontalAlignment="Left" Margin="76,24,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="descLabel" Content="{DynamicResource descLabel}" HorizontalAlignment="Left" Margin="76,79,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="categoryLabel" Content="{DynamicResource categoryLabel}" HorizontalAlignment="Left" Margin="76,133,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="rateLabel" Content="{DynamicResource rateLabel}" HorizontalAlignment="Left" Margin="76,187,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="priceLabel" Content="{DynamicResource priceLabel}" HorizontalAlignment="Left" Margin="76,246,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="amountLabel" Content="{DynamicResource amountLabel}" HorizontalAlignment="Left" Margin="76,300,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="otherLabel" Content="{DynamicResource otherLabel}" HorizontalAlignment="Left" Margin="76,355,0,0" VerticalAlignment="Top" Width="88"/>
-        <Button Content="{DynamicResource Copy}" HorizontalAlignment="Left" Margin="214,37,0,0" VerticalAlignment="Top" Width="103" CommandTarget="{Binding ElementName=NameTextBox}" Command="Copy"/>
-        <Button Content="{DynamicResource Paste}" HorizontalAlignment="Left" Margin="214,65,0,0" VerticalAlignment="Top" Width="103"  CommandTarget="{Binding ElementName=NameTextBox}" Command="Paste"/>
+        <control:UserControl1 HorizontalAlignment="Left" Width="766"/>
     </Grid>
 </Window>

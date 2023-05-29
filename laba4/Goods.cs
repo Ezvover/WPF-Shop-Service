@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Input;
 
 namespace laba4
 {
@@ -12,7 +8,7 @@ namespace laba4
         {
 
         }
-        public Goods(string id, string name, string desc, string category, double rate, double price, int amount, string other) 
+        public Goods(int id, string name, string desc, string category, int rate, double price, int amount, string other)
         {
             Id = id;
             Name = name;
@@ -24,11 +20,11 @@ namespace laba4
             Other = other;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
         public string Category { get; set; }
-        public double Rate { get; set; }
+        public int Rate { get; set; }
         public double Price { get; set; }
         public int Amount { get; set; }
         public string Other { get; set; }
