@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -27,9 +28,12 @@ namespace laba4
 
         int id = 0;
 
+        Goods goods = new Goods();
+
         public EditWindow()
         {
             InitializeComponent();
+
 
             Goods goods2;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
@@ -46,7 +50,7 @@ namespace laba4
 
         public void LoadDB()
         {
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string query = $"SELECT id, name, [desc], category, rate, price, amount, other FROM Goods WHERE id = {id}";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -58,7 +62,6 @@ namespace laba4
                     {
                         while (reader.Read())
                         {
-                            Goods goods = new Goods();
                             goods.Id = Convert.ToInt32(reader["id"]);
                             goods.Name = reader["name"].ToString();
                             goods.Desc = reader["desc"].ToString();
@@ -67,6 +70,8 @@ namespace laba4
                             goods.Price = Convert.ToInt32(reader["price"]);
                             goods.Amount = Convert.ToInt32(reader["amount"]);
                             goods.Other = reader["other"].ToString();
+
+                            
 
                             goodsList.Add(goods);
                         }
@@ -85,12 +90,14 @@ namespace laba4
             RateTextBox.Text = goodsList[0].Rate.ToString();
             PriceTextBox.Text = goodsList[0].Price.ToString();
             AmountTextBox.Text = goodsList[0].Amount.ToString();
-            OtherTextBox.Text = goodsList[0].Other.ToString();
+
+          
+
         }
 
         private void UpdateDB()
         {
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string updateGoodsQuery = $"UPDATE Goods SET name = @Name, [desc] = @Desc, category = @Category, rate = @Rate, price = @Price, amount = @Amount, other = @Other WHERE id = @id";
             string updateCatalogQuery = "UPDATE Category SET Category = (SELECT category FROM Goods WHERE id = @id) WHERE id = @id";
 
@@ -102,13 +109,24 @@ namespace laba4
                 {
                     using (SqlCommand command = new SqlCommand(updateGoodsQuery, connection, transaction))
                     {
+                        string imagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\{NameTextBox.Text}.jpg";
+
+                        if (File.Exists(imagePath))
+                        {
+                            goods.Other = imagePath;
+                        }
+                        else
+                        {
+                            goods.Other = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
+                        }
+
                         command.Parameters.AddWithValue("@Name", NameTextBox.Text);
                         command.Parameters.AddWithValue("@Desc", DescTextBox.Text);
                         command.Parameters.AddWithValue("@Category", CategoryTextBox.Text);
                         command.Parameters.AddWithValue("@Rate", RateTextBox.Text);
                         command.Parameters.AddWithValue("@Price", PriceTextBox.Text);
                         command.Parameters.AddWithValue("@Amount", AmountTextBox.Text);
-                        command.Parameters.AddWithValue("@Other", OtherTextBox.Text);
+                        command.Parameters.AddWithValue("@Other", goods.Other);
                         command.Parameters.AddWithValue("@id", goodsList[0].Id);
 
                         command.ExecuteNonQuery();

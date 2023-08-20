@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="460" Width="978">
     <Window.Resources>
+        <Style x:Key="CenteredCellStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
         <FrameworkElement x:Key="KinectCursor" Cursor="C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\Normal.cur"/>
         <ImageBrush x:Key="CommonImBrush" ViewportUnits="Absolute" Viewport="0 0 16 16" TileMode="Tile" ImageSource="images/SaveAs.png" Opacity="1.0"></ImageBrush>
     </Window.Resources>
@@ -16,15 +20,42 @@
             <ColumnDefinition Width="305*"/>
             <ColumnDefinition Width="648*"/>
         </Grid.ColumnDefinitions>
-        <Menu Background="{x:Null}" Grid.ColumnSpan="3" Height="430" VerticalAlignment="Center" Margin="0,0,-26,0">
-            <MenuItem x:Name="menuLanguage" Header="{StaticResource m_menu_Language}" Height="21" Width="110" RenderTransformOrigin="0.612,0.75" />
-        </Menu>
-        <Button Content="Select" Click="SelectButton_Click"  Grid.Column="1" Margin="270,372,616,0" Height="15" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
+        <DataGrid x:Name="MainGrid" AutoGenerateColumns="False" ItemsSource="{DynamicResource ResourceKey=goods}" HorizontalAlignment="Left" Height="284" Margin="12,30,0,0" VerticalAlignment="Top" Width="453" Grid.ColumnSpan="2" Grid.Column="1">
+            <DataGrid.Resources>
+                <!-- Стиль для выделенной строки -->
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Yellow" />
+                            <!-- Установите здесь желаемый цвет -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Desc}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTextColumn Header="Rate" Binding="{Binding Rate}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" ElementStyle="{StaticResource CenteredCellStyle}" />
+                <DataGridTemplateColumn Header="Image">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Other}" Width="100" Height="50" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Button Content="Up" Click="UpButton_Click" Grid.Column="1" Margin="270,348,616,0" Height="16" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Button Content="Down" Click="DownButton_Click" Grid.Column="1" Margin="270,394,616,0" Height="16" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Button Content="Edit"  Grid.Column="2" Margin="0,348,515,0" Click="Button_Click_3" Height="63" VerticalAlignment="Top" HorizontalAlignment="Right" Width="85"/>
         <Button x:Name="DeleteButton"  Content="{DynamicResource DeleteButton}" HorizontalAlignment="Left" Margin="174,348,0,0" VerticalAlignment="Top" Height="63" Width="82" Click="Button_Click" Grid.Column="1"/>
-        <DataGrid x:Name="MainGrid" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=goods}" HorizontalAlignment="Left" Height="269" Margin="10,58,0,0" VerticalAlignment="Top" Width="587" MouseDoubleClick="MainGrid_MouseDoubleClick" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBox x:Name="SearchText" HorizontalAlignment="Left" Margin="325,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.Column="2" Height="20"/>
         <Button x:Name="SearchButton" Content="{DynamicResource SearchButton}" HorizontalAlignment="Left" Margin="321,222,0,0" VerticalAlignment="Top" Height="49" Width="104" Click="SearchButton_Click" Grid.Column="2"/>
         <TextBox x:Name="SearchText2" HorizontalAlignment="Left" Margin="325,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.Column="2"/>

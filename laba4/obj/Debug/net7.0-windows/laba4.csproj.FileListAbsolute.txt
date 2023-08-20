@@ -28,7 +28,6 @@ C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\Use
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\AddWindow.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\MainWindow.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\UserControl1.g.cs
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\Window1.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4_MarkupCompile.cache
@@ -36,7 +35,6 @@ C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\lab
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\App.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\AddWindow.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\MainWindow.baml
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\Window1.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.g.resources
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.Properties.Resources.resources
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.csproj.GenerateResource.cache
@@ -52,3 +50,4 @@ C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\lab
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\ref\laba4.dll
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\EditWindow.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\EditWindow.baml
+C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.dll.config

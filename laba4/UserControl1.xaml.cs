@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +42,7 @@ namespace laba4
 
         public void CheckId()
         {
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string query = "SELECT id FROM Goods";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -87,9 +89,19 @@ namespace laba4
 
             goods.Amount = int.Parse(AmountTextBox.Text);
 
-            goods.Other = OtherTextBox.Text;
 
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string imagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\{NameTextBox.Text}.jpg";
+
+            if (File.Exists(imagePath))
+            {
+                goods.Other = imagePath;
+            }
+            else
+            {
+                goods.Other = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string insertQuery = "INSERT INTO Goods (id, name, [desc], category, rate, price, amount, other) VALUES (@id, @name, @desc, @category, @rate, @price, @amount, @other)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -115,7 +127,7 @@ namespace laba4
                     }
                     catch (Exception ex)
                     {
-                      
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }

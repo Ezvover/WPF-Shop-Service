@@ -1,23 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 namespace laba4
@@ -29,12 +18,11 @@ namespace laba4
     {
         List<Goods> goodsList = new List<Goods>();
 
-     
-
         public MainWindow()
         {
             InitializeComponent();
             ToGrid();
+            MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
             MainGrid.IsReadOnly = true;
             List<string> strList = new List<string>();
             for (int i = 0; i < goodsList.Count; i++)
@@ -46,52 +34,22 @@ namespace laba4
 
 
             Mouse.OverrideCursor = ((FrameworkElement)this.Resources["KinectCursor"]).Cursor;
-            App.LanguageChanged += LanguageChanged;
 
-            CultureInfo currLang = App.Language;
-
-            //Заполняем меню смены языка:
-            menuLanguage.Items.Clear();
-            foreach (var lang in App.Languages)
+            try
             {
-                MenuItem menuLang = new MenuItem();
-                menuLang.Header = lang.DisplayName;
-                menuLang.Tag = lang;
-                menuLang.IsChecked = lang.Equals(currLang);
-                menuLang.Click += ChangeLanguageClick;
-                menuLanguage.Items.Add(menuLang);
+                File.Delete("TempEditGood.xml");
+            }
+            catch
+            {
+
             }
         }
-
-        private void LanguageChanged(Object sender, EventArgs e)
-        {
-            CultureInfo currLang = App.Language;
-            foreach (MenuItem i in menuLanguage.Items)
-            {
-                CultureInfo ci = i.Tag as CultureInfo;
-                i.IsChecked = ci != null && ci.Equals(currLang);
-            }
-        }
-
-        private void ChangeLanguageClick(Object sender, EventArgs e)
-        {
-            MenuItem mi = sender as MenuItem;
-            if (mi != null)
-            {
-                CultureInfo lang = mi.Tag as CultureInfo;
-                if (lang != null)
-                {
-                    App.Language = lang;
-                }
-            }
-        }
-
 
         public void ToGrid()
         {
             goodsList.Clear();
             MainGrid.ItemsSource = null;
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string selectQuery = "SELECT id, name, [desc], category, rate, price, amount, other FROM Goods";
             string updateQuery = "UPDATE Category SET category = @category WHERE id = @id";
             string insertQuery = "INSERT INTO Category (id, category) VALUES (@id, @category)";
@@ -113,7 +71,12 @@ namespace laba4
                             goods.Rate = Convert.ToInt32(reader["rate"]);
                             goods.Price = Convert.ToDouble(reader["price"]);
                             goods.Amount = Convert.ToInt32(reader["amount"]);
-                            goods.Other = reader["other"].ToString();
+
+                            string imagePath = reader["other"].ToString();
+                            if (File.Exists(imagePath))
+                            {
+                                goods.Other = new Uri(imagePath).ToString();
+                            }
 
                             goodsList.Add(goods);
                         }
@@ -155,7 +118,7 @@ namespace laba4
             {
                 if (goodsList[i].Equals(selectedObject))
                 {
-                    string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+                    string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
                     string deleteGoodsQuery = "DELETE FROM Goods WHERE id = @id";
                     string deleteCatalogQuery = "DELETE FROM Category WHERE id = @id";
 
@@ -196,25 +159,12 @@ namespace laba4
             MainGrid.ItemsSource = goodsList;
         }
 
-
-        private void MainGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) // move to window 1
-        {
-            var selectedObject = MainGrid.SelectedItem as Goods;
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream stream = new FileStream($"TempGood.xml", FileMode.OpenOrCreate))
-            {
-                xmlSerializer.Serialize(stream, selectedObject);
-            }
-            Window1 window = new Window1();
-            window.Show();
-        }
-
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             int minPrice = int.Parse(SearchText.Text);
             int maxPrice = int.Parse(SearchText2.Text);
 
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string query = $"SELECT id, name, [desc], category, rate, price, amount, other FROM Goods WHERE price >= {minPrice} AND price <= {maxPrice}";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -254,7 +204,7 @@ namespace laba4
             List<Goods> tempList = new List<Goods>();
             MainGrid.ItemsSource = null;
 
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -312,13 +262,14 @@ namespace laba4
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             ToGrid();
+            MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
         }
 
         private void SearchButton2_Click(object sender, RoutedEventArgs e)
         {
             string searchText = SearchText3.Text;
 
-            string connectionString = @"Data Source=.;Initial Catalog=GoodsLab;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string query = $"SELECT id, name, [desc], category, rate, price, amount, other FROM Goods WHERE " +
                 $"name LIKE '%{searchText}%' OR " +
                 $"[desc] LIKE '%{searchText}%' OR " +
@@ -396,11 +347,6 @@ namespace laba4
                     MainGrid.ScrollIntoView(MainGrid.SelectedItem);
                 }
             }
-        }
-
-        private void SelectButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainGrid_MouseDoubleClick(sender, null);
         }
 
     }
