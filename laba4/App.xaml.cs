@@ -55,7 +55,8 @@ namespace laba4
             rate int,
             price int,
             amount int,
-            other nvarchar(max)
+            other nvarchar(max),
+            picture image
         );";
                     using (SqlCommand command = new SqlCommand(createTableQuery, connection))
                     {

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
@@ -22,6 +23,7 @@ namespace laba4
         {
             InitializeComponent();
             ToGrid();
+          
             MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
             MainGrid.IsReadOnly = true;
             List<string> strList = new List<string>();
@@ -77,7 +79,6 @@ namespace laba4
                             {
                                 goods.Other = new Uri(imagePath).ToString();
                             }
-
                             goodsList.Add(goods);
                         }
                     }

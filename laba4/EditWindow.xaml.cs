@@ -98,7 +98,7 @@ namespace laba4
         private void UpdateDB()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
-            string updateGoodsQuery = $"UPDATE Goods SET name = @Name, [desc] = @Desc, category = @Category, rate = @Rate, price = @Price, amount = @Amount, other = @Other WHERE id = @id";
+            string updateGoodsQuery = $"UPDATE Goods SET name = @Name, [desc] = @Desc, category = @Category, rate = @Rate, price = @Price, amount = @Amount, other = @Other, picture = @Picture WHERE id = @id";
             string updateCatalogQuery = "UPDATE Category SET Category = (SELECT category FROM Goods WHERE id = @id) WHERE id = @id";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -120,6 +120,19 @@ namespace laba4
                             goods.Other = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
                         }
 
+                        byte[] imageBytes;
+
+                        if (File.Exists(imagePath))
+                        {
+                            imageBytes = File.ReadAllBytes(imagePath);
+                        }
+                        else
+                        {
+                            string defaultImagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
+                            imageBytes = File.ReadAllBytes(defaultImagePath);
+                        }
+                        goods.Bytes = imageBytes;
+
                         command.Parameters.AddWithValue("@Name", NameTextBox.Text);
                         command.Parameters.AddWithValue("@Desc", DescTextBox.Text);
                         command.Parameters.AddWithValue("@Category", CategoryTextBox.Text);
@@ -127,6 +140,7 @@ namespace laba4
                         command.Parameters.AddWithValue("@Price", PriceTextBox.Text);
                         command.Parameters.AddWithValue("@Amount", AmountTextBox.Text);
                         command.Parameters.AddWithValue("@Other", goods.Other);
+                        command.Parameters.AddWithValue("@Picture", goods.Bytes);
                         command.Parameters.AddWithValue("@id", goodsList[0].Id);
 
                         command.ExecuteNonQuery();
@@ -155,9 +169,16 @@ namespace laba4
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            UpdateDB();
-            File.Delete("TempEditGood.xml");
-            this.Close();
+            if ((int.Parse(RateTextBox.Text) < 0) || (double.Parse(PriceTextBox.Text) < 0) || (int.Parse(AmountTextBox.Text) < 0))
+            {
+                MessageBox.Show("Данные меньше нуля");
+            }
+            else
+            {
+                UpdateDB();
+                File.Delete("TempEditGood.xml");
+                this.Close();
+            }
         }
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Goods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>1</Id>
+  <Name>cxzc</Name>
+  <Desc>cxc</Desc>
+  <Category>dsdas</Category>
+  <Rate>31</Rate>
+  <Price>3</Price>
+  <Amount>3</Amount>
+  <Other>file:///C:/Users/vovas/Desktop/repos/WPF-Shop-Service/laba4/bin/Debug/net7.0-windows/images/img0.jpg</Other>
+</Goods>

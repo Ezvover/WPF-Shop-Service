@@ -24,12 +24,9 @@ C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\run
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.csproj.AssemblyReference.cache
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\lang.ru-RU.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\lang.baml
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\UserControl1.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\AddWindow.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\MainWindow.g.cs
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\UserControl1.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\App.g.cs
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4_MarkupCompile.cache
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4_MarkupCompile.lref
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\App.baml
