@@ -110,28 +110,21 @@ namespace laba4
                     using (SqlCommand command = new SqlCommand(updateGoodsQuery, connection, transaction))
                     {
                         string imagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\{NameTextBox.Text}.jpg";
-
-                        if (File.Exists(imagePath))
-                        {
-                            goods.Other = imagePath;
-                        }
-                        else
-                        {
-                            goods.Other = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
-                        }
-
+                        string defaultImagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
                         byte[] imageBytes;
 
                         if (File.Exists(imagePath))
                         {
+                            goods.Other = imagePath;
                             imageBytes = File.ReadAllBytes(imagePath);
                         }
                         else
                         {
-                            string defaultImagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
+                            goods.Other = defaultImagePath;
                             imageBytes = File.ReadAllBytes(defaultImagePath);
                         }
-                        goods.Bytes = imageBytes;
+
+                        goods.Picture = imageBytes;
 
                         command.Parameters.AddWithValue("@Name", NameTextBox.Text);
                         command.Parameters.AddWithValue("@Desc", DescTextBox.Text);
@@ -140,18 +133,18 @@ namespace laba4
                         command.Parameters.AddWithValue("@Price", PriceTextBox.Text);
                         command.Parameters.AddWithValue("@Amount", AmountTextBox.Text);
                         command.Parameters.AddWithValue("@Other", goods.Other);
-                        command.Parameters.AddWithValue("@Picture", goods.Bytes);
+                        command.Parameters.AddWithValue("@Picture", goods.Picture);
                         command.Parameters.AddWithValue("@id", goodsList[0].Id);
 
                         command.ExecuteNonQuery();
                     }
 
-                    using (SqlCommand command = new SqlCommand(updateCatalogQuery, connection, transaction))
-                    {
-                        command.Parameters.AddWithValue("@id", goodsList[0].Id);
+                        using (SqlCommand command = new SqlCommand(updateCatalogQuery, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@id", goodsList[0].Id);
 
-                        command.ExecuteNonQuery();
-                    }
+                            command.ExecuteNonQuery();
+                        }
 
                     transaction.Commit();
                 }

@@ -13,14 +13,15 @@ namespace laba4
 
         }
 
-        public Categories(int id, string category)
+        public Categories(int id, string category, int goodsId)
         {
             Id = id;
-            Category = category;
+            CategoryName = category;
         }
 
         public int Id { get; set; }
-        public string Category { get; set; }
+        public string CategoryName { get; set; }
+        public Goods Goods { get; set; }
 
     }
 }

@@ -18,6 +18,7 @@ namespace laba4
     public partial class MainWindow : Window
     {
         List<Goods> goodsList = new List<Goods>();
+        List<string> strList = new List<string>();
 
         public MainWindow()
         {
@@ -26,16 +27,13 @@ namespace laba4
           
             MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
             MainGrid.IsReadOnly = true;
-            List<string> strList = new List<string>();
+
             for (int i = 0; i < goodsList.Count; i++)
             {
                 strList.Add(goodsList[i].Category);
             }
             var strList2 = strList.Distinct();
             FilterBOx.ItemsSource = strList2;
-
-
-            Mouse.OverrideCursor = ((FrameworkElement)this.Resources["KinectCursor"]).Cursor;
 
             try
             {
@@ -53,8 +51,6 @@ namespace laba4
             MainGrid.ItemsSource = null;
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
             string selectQuery = "SELECT id, name, [desc], category, rate, price, amount, other FROM Goods";
-            string updateQuery = "UPDATE Category SET category = @category WHERE id = @id";
-            string insertQuery = "INSERT INTO Category (id, category) VALUES (@id, @category)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -84,172 +80,175 @@ namespace laba4
                     }
                 }
 
-                foreach (Goods goods in goodsList)
-                {
-                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@id", goods.Id);
-                        command.Parameters.AddWithValue("@category", goods.Category);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-                        if (rowsAffected == 0)
-                        {
-                            using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
-                            {
-                                insertCommand.Parameters.AddWithValue("@id", goods.Id);
-                                insertCommand.Parameters.AddWithValue("@category", goods.Category);
-
-                                insertCommand.ExecuteNonQuery();
-                            }
-                        }
-                    }
-                }
-
                 connection.CloseAsync();
                 MainGrid.ItemsSource = goodsList;
             }
-        }
 
+            strList.Clear();
+            for (int i = 0; i < goodsList.Count; i++)
+            {
+                strList.Add(goodsList[i].Category);
+            }
+            var strList2 = strList.Distinct();
+            FilterBOx.ItemsSource = strList2;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e) // delete button
         {
-            var selectedObject = MainGrid.SelectedItem as Goods;
-            MainGrid.ItemsSource = null;
-            for (int i = 0; i < goodsList.Count; i++)
+            if (MainGrid.SelectedItem!= null) 
             {
-                if (goodsList[i].Equals(selectedObject))
+                var selectedObject = MainGrid.SelectedItem as Goods;
+                MainGrid.ItemsSource = null;
+                for (int i = 0; i < goodsList.Count; i++)
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
-                    string deleteGoodsQuery = "DELETE FROM Goods WHERE id = @id";
-                    string deleteCatalogQuery = "DELETE FROM Category WHERE id = @id";
-
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    if (goodsList[i].Equals(selectedObject))
                     {
-                        connection.Open();
-                        SqlTransaction transaction = connection.BeginTransaction();
-                        try
+                        string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
+                        string deleteGoodsQuery = "DELETE FROM Goods WHERE id = @id";
+                        string deleteCatalogQuery = "DELETE FROM Category WHERE id = @id";
+
+                        using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                            using (SqlCommand command = new SqlCommand(deleteCatalogQuery, connection, transaction))
+                            connection.Open();
+                            SqlTransaction transaction = connection.BeginTransaction();
+                            try
                             {
-                                command.Parameters.AddWithValue("@id", goodsList[i].Id);
-                                command.ExecuteNonQuery();
-                            }
+                                using (SqlCommand command = new SqlCommand(deleteCatalogQuery, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@id", goodsList[i].Id);
+                                    command.ExecuteNonQuery();
+                                }
 
-                            using (SqlCommand command = new SqlCommand(deleteGoodsQuery, connection, transaction))
+                                using (SqlCommand command = new SqlCommand(deleteGoodsQuery, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@id", goodsList[i].Id);
+                                    command.ExecuteNonQuery();
+                                }
+
+                                transaction.Commit();
+                            }
+                            catch (Exception ex)
                             {
-                                command.Parameters.AddWithValue("@id", goodsList[i].Id);
-                                command.ExecuteNonQuery();
+                                transaction.Rollback();
+                                throw;
                             }
-
-                            transaction.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-
-                    goodsList.Remove(goodsList[i]);
-                }
-            }
-            MainGrid.ItemsSource = goodsList;
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            int minPrice = int.Parse(SearchText.Text);
-            int maxPrice = int.Parse(SearchText2.Text);
-
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
-            string query = $"SELECT id, name, [desc], category, rate, price, amount, other FROM Goods WHERE price >= {minPrice} AND price <= {maxPrice}";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        List<Goods> tempList = new List<Goods>();
-
-                        while (reader.Read())
-                        {
-                            Goods goods = new Goods();
-                            goods.Id = Convert.ToInt32(reader["id"]);
-                            goods.Name = reader["name"].ToString();
-                            goods.Desc = reader["desc"].ToString();
-                            goods.Category = reader["category"].ToString();
-                            goods.Rate = Convert.ToInt32(reader["rate"]);
-                            goods.Price = Convert.ToDouble(reader["price"]);
-                            goods.Amount = Convert.ToInt32(reader["amount"]);
-                            goods.Other = reader["other"].ToString();
-
-                            tempList.Add(goods);
+                            finally
+                            {
+                                connection.Close();
+                            }
                         }
 
-                        MainGrid.ItemsSource = tempList;
+                        goodsList.Remove(goodsList[i]);
                     }
                 }
-                connection.CloseAsync();
+                MainGrid.ItemsSource = goodsList;
+                MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
             }
         }
 
-
-        private void Button_Click_1(object sender, RoutedEventArgs e) // search
+        private void SearchButton_Click(object sender, RoutedEventArgs e) // sortByPrice
         {
-            List<Goods> tempList = new List<Goods>();
-            MainGrid.ItemsSource = null;
-
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                try
+                int minPrice = int.Parse(SearchText.Text);
+                int maxPrice = int.Parse(SearchText2.Text);
+
+                string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
+                string query = $"SELECT id, name, [desc], category, rate, price, amount, other FROM Goods WHERE price >= {minPrice} AND price <= {maxPrice}";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string storedProcedure = @"
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            List<Goods> tempList = new List<Goods>();
+
+                            while (reader.Read())
+                            {
+                                Goods goods = new Goods();
+                                goods.Id = Convert.ToInt32(reader["id"]);
+                                goods.Name = reader["name"].ToString();
+                                goods.Desc = reader["desc"].ToString();
+                                goods.Category = reader["category"].ToString();
+                                goods.Rate = Convert.ToInt32(reader["rate"]);
+                                goods.Price = Convert.ToDouble(reader["price"]);
+                                goods.Amount = Convert.ToInt32(reader["amount"]);
+                                goods.Other = reader["other"].ToString();
+
+                                tempList.Add(goods);
+                            }
+
+                            MainGrid.ItemsSource = tempList;
+                        }
+                    }
+                    connection.CloseAsync();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
+        }
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) // CategorySort
+        {
+            if (FilterBOx.SelectedItem!= null) 
+            {
+                List<Goods> tempList = new List<Goods>();
+                MainGrid.ItemsSource = null;
+
+                string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open(); // процедура
+                    try
+                    {
+                        string storedProcedure = @"
                     CREATE PROCEDURE GetGoodsByCategory
                         @Category nvarchar(50)
                     AS
                     BEGIN
                         SELECT id, name, [desc], category, rate, price, amount, other FROM Goods WHERE category = @Category;
                     END";
-                    using (SqlCommand command = new SqlCommand(storedProcedure, connection))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch
-                {
-
-                }
-                using (SqlCommand command = new SqlCommand("GetGoodsByCategory", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@Category", FilterBOx.Text));
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        using (SqlCommand command = new SqlCommand(storedProcedure, connection))
                         {
-                            Goods goods = new Goods();
-                            goods.Id = reader.GetInt32(0);
-                            goods.Name = reader.GetString(1);
-                            goods.Desc = reader.GetString(2);
-                            goods.Category = reader.GetString(3);
-                            goods.Rate = reader.GetInt32(4);
-                            goods.Price = reader.GetInt32(5);
-                            goods.Amount = reader.GetInt32(6);
-                            goods.Other = reader.GetString(7);
-                            tempList.Add(goods);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    using (SqlCommand command = new SqlCommand("GetGoodsByCategory", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(new SqlParameter("@Category", FilterBOx.Text));
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Goods goods = new Goods();
+                                goods.Id = reader.GetInt32(0);
+                                goods.Name = reader.GetString(1);
+                                goods.Desc = reader.GetString(2);
+                                goods.Category = reader.GetString(3);
+                                goods.Rate = reader.GetInt32(4);
+                                goods.Price = reader.GetInt32(5);
+                                goods.Amount = reader.GetInt32(6);
+                                goods.Other = reader.GetString(7);
+                                tempList.Add(goods);
+                            }
                         }
                     }
                 }
+                MainGrid.ItemsSource = tempList;
+                MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
             }
-            MainGrid.ItemsSource = tempList;
         }
 
 
@@ -266,7 +265,7 @@ namespace laba4
             MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
         }
 
-        private void SearchButton2_Click(object sender, RoutedEventArgs e)
+        private void SearchButton2_Click(object sender, RoutedEventArgs e) // PartSearch
         {
             string searchText = SearchText3.Text;
 
@@ -308,20 +307,24 @@ namespace laba4
                 }
                 connection.CloseAsync();
             }
+            MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
         }
 
 
         private void Button_Click_3(object sender, RoutedEventArgs e) // edit
         {
-            var selectedObject = MainGrid.SelectedItem as Goods;
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
-            using (FileStream stream = new FileStream($"TempEditGood.xml", FileMode.OpenOrCreate))
+            if (MainGrid.SelectedItem!= null) 
             {
-                xmlSerializer.Serialize(stream, selectedObject);
-            }
+                var selectedObject = MainGrid.SelectedItem as Goods;
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Goods));
+                using (FileStream stream = new FileStream($"TempEditGood.xml", FileMode.OpenOrCreate))
+                {
+                    xmlSerializer.Serialize(stream, selectedObject);
+                }
 
-            EditWindow editWindow = new EditWindow();
-            editWindow.Show();
+                EditWindow editWindow = new EditWindow();
+                editWindow.Show();
+            }
         }
 
         private void UpButton_Click(object sender, RoutedEventArgs e)
@@ -349,6 +352,5 @@ namespace laba4
                 }
             }
         }
-
     }
 }

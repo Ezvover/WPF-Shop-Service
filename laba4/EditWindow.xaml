@@ -4,15 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:laba4"
+        xmlns:control = "clr-namespace:laba4" 
         mc:Ignorable="d"
-        Title="EditWindow" Height="450" Width="478">
-    <Grid Margin="0,0,10,0">
+        Title="AddWindow" Height="415" Width="441">
+    <Grid Margin="0,0,0,-16">
+
         <TextBox x:Name="DescTextBox" HorizontalAlignment="Left" Margin="76,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="CategoryTextBox" HorizontalAlignment="Left" Margin="76,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="RateTextBox" HorizontalAlignment="Left" Margin="76,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="PriceTextBox" HorizontalAlignment="Left" Margin="76,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="AmountTextBox" HorizontalAlignment="Left" Margin="76,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="AddButton" Content="Edit" HorizontalAlignment="Left" Margin="246,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.721,0.595" Height="237" Width="150" Click="AddButton_Click"/>
+        <Button x:Name="AddButton" Content="{DynamicResource AddButton}" HorizontalAlignment="Left" Margin="269,37,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.721,0.595" Height="309" Width="107" Click="AddButton_Click"/>
         <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Margin="76,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="nameLabel" Content="{DynamicResource nameLabel}" HorizontalAlignment="Left" Margin="76,24,0,0" VerticalAlignment="Top"/>
         <Label x:Name="descLabel" Content="{DynamicResource descLabel}" HorizontalAlignment="Left" Margin="76,79,0,0" VerticalAlignment="Top"/>

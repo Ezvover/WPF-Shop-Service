@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace laba4
 {
@@ -35,13 +36,14 @@ namespace laba4
         public void CheckId()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
-            string query = "SELECT id FROM Goods";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("usp_GetGoods", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -55,6 +57,7 @@ namespace laba4
                 }
             }
         }
+
 
 
         public void ToClass()
@@ -83,43 +86,37 @@ namespace laba4
 
 
             string imagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\{NameTextBox.Text}.jpg";
-
-            if (File.Exists(imagePath))
-            {
-                goods.Other = imagePath;
-            }
-            else
-            {
-                goods.Other = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
-            }
-
-
+            string defaultImagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
             byte[] imageBytes;
 
             if (File.Exists(imagePath))
             {
+                goods.Other = imagePath;
                 imageBytes = File.ReadAllBytes(imagePath);
             }
             else
             {
-                string defaultImagePath = $"C:\\Users\\vovas\\Desktop\\repos\\WPF-Shop-Service\\laba4\\bin\\Debug\\net7.0-windows\\images\\img0.jpg";
+                goods.Other = defaultImagePath;
                 imageBytes = File.ReadAllBytes(defaultImagePath);
             }
-            goods.Bytes = imageBytes;
+
+            goods.Picture = imageBytes;
 
 
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectString"].ConnectionString;
-            string insertQuery = "INSERT INTO Goods (id, name, [desc], category, rate, price, amount, other, picture) VALUES (@id, @name, @desc, @category, @rate, @price, @amount, @other, @picture)";
+            string insertGoodsQuery = "INSERT INTO Goods (id, name, [desc], category, rate, price, amount, other, picture) VALUES (@id, @name, @desc, @category, @rate, @price, @amount, @other, @picture)";
+            string insertCategoryQuery = "INSERT INTO Category (id, category) VALUES (@id, @category)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlTransaction transaction = connection.BeginTransaction();
-                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+
+                try
                 {
-                    command.Transaction = transaction;
-                    try
+                    using (SqlCommand command = new SqlCommand(insertGoodsQuery, connection, transaction))
                     {
+                        command.Transaction = transaction;
                         command.Parameters.AddWithValue("@id", goods.Id);
                         command.Parameters.AddWithValue("@name", goods.Name);
                         command.Parameters.AddWithValue("@desc", goods.Desc);
@@ -128,15 +125,26 @@ namespace laba4
                         command.Parameters.AddWithValue("@price", goods.Price);
                         command.Parameters.AddWithValue("@amount", goods.Amount);
                         command.Parameters.AddWithValue("@other", goods.Other);
-                        command.Parameters.AddWithValue("@picture", goods.Bytes);
+                        command.Parameters.AddWithValue("@picture", goods.Picture);
 
                         command.ExecuteNonQuery();
-                        transaction.Commit();
                     }
-                    catch (Exception ex)
+
+                    using (SqlCommand insertCommand = new SqlCommand(insertCategoryQuery, connection, transaction))
                     {
-                        MessageBox.Show(ex.Message);
+                        insertCommand.Transaction = transaction;
+                        insertCommand.Parameters.AddWithValue("@id", goods.Id);
+                        insertCommand.Parameters.AddWithValue("@category", goods.Category);
+
+                        insertCommand.ExecuteNonQuery();
                     }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show(ex.Message);
                 }
             }
 
@@ -144,19 +152,27 @@ namespace laba4
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((int.Parse(RateTextBox.Text) < 0) || (double.Parse(PriceTextBox.Text) < 0) || (int.Parse(AmountTextBox.Text) < 0))
+            try
             {
-                MessageBox.Show("Данные меньше нуля");
-            }
-            else
-            {
-                ToClass();
-                Window parentWindow = Window.GetWindow(this);
-                if (parentWindow != null)
+                if ((int.Parse(RateTextBox.Text) < 0) || (double.Parse(PriceTextBox.Text) < 0) || (int.Parse(AmountTextBox.Text) < 0))
                 {
-                    parentWindow.Close();
+                    MessageBox.Show("Данные меньше нуля");
+                }
+                else
+                {
+                    ToClass();
+                    Window parentWindow = Window.GetWindow(this);
+                    if (parentWindow != null)
+                    {
+                        parentWindow.Close();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

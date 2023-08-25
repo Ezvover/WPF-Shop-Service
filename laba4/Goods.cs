@@ -28,6 +28,6 @@ namespace laba4
         public double Price { get; set; }
         public int Amount { get; set; }
         public string Other { get; set; }
-        public byte[] Bytes { get; set; }
+        public byte[] Picture { get; set; }
     }
 }

@@ -79,8 +79,8 @@ namespace laba4
                     string createTableQuery = @"
         CREATE TABLE Category
         (
-            id int FOREIGN KEY REFERENCES Goods(id),
-            category nvarchar(50)
+        id int PRIMARY KEY FOREIGN KEY REFERENCES Goods(id),
+        category nvarchar(50),
         );";
                     using (SqlCommand command = new SqlCommand(createTableQuery, connection))
                     {
@@ -97,6 +97,23 @@ namespace laba4
                     {
                         throw;
                     }
+                }
+                try
+                {
+                    string createProcedureQuery = @"
+        CREATE PROCEDURE usp_GetGoods
+        AS
+        BEGIN
+            SELECT id FROM Goods;
+        END;";
+                    using (SqlCommand command = new SqlCommand(createProcedureQuery, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
 
