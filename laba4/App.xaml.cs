@@ -113,7 +113,7 @@ namespace laba4
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show(ex.Message);
+
                 }
             }
 

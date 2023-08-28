@@ -1,4 +1,5 @@
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.exe
+C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.dll.config
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.deps.json
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.runtimeconfig.json
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.dll
@@ -22,15 +23,17 @@ C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\run
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.csproj.AssemblyReference.cache
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\lang.ru-RU.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\lang.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\AddWindow.g.cs
+C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\EditWindow.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\MainWindow.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\App.g.cs
+C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4_MarkupCompile.cache
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4_MarkupCompile.lref
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\App.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\AddWindow.baml
+C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\EditWindow.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\MainWindow.baml
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.g.resources
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.Properties.Resources.resources
@@ -45,6 +48,3 @@ C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\ref
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.pdb
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\laba4.genruntimeconfig.cache
 C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\ref\laba4.dll
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\EditWindow.g.cs
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\obj\Debug\net7.0-windows\EditWindow.baml
-C:\Users\vovas\Desktop\repos\WPF-Shop-Service\laba4\bin\Debug\net7.0-windows\laba4.dll.config

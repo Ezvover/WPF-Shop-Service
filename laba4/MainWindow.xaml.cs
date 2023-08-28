@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Serialization;
 
@@ -23,6 +24,7 @@ namespace laba4
         public MainWindow()
         {
             InitializeComponent();
+
             ToGrid();
           
             MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
@@ -35,14 +37,7 @@ namespace laba4
             var strList2 = strList.Distinct();
             FilterBOx.ItemsSource = strList2;
 
-            try
-            {
-                File.Delete("TempEditGood.xml");
-            }
-            catch
-            {
-
-            }
+          
         }
 
         public void ToGrid()
@@ -196,7 +191,7 @@ namespace laba4
 
         private void Button_Click_1(object sender, RoutedEventArgs e) // CategorySort
         {
-            if (FilterBOx.SelectedItem!= null) 
+            if (FilterBOx.SelectedItem!= null)
             {
                 List<Goods> tempList = new List<Goods>();
                 MainGrid.ItemsSource = null;
@@ -313,6 +308,14 @@ namespace laba4
 
         private void Button_Click_3(object sender, RoutedEventArgs e) // edit
         {
+            try
+            {
+                File.Delete("TempEditGood.xml");
+            }
+            catch
+            {
+
+            }
             if (MainGrid.SelectedItem!= null) 
             {
                 var selectedObject = MainGrid.SelectedItem as Goods;
@@ -326,20 +329,6 @@ namespace laba4
                 editWindow.Show();
             }
         }
-
-        private void UpButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainGrid.SelectedItem != null)
-            {
-                int index = MainGrid.SelectedIndex;
-                if (index > 0)
-                {
-                    MainGrid.SelectedIndex = index - 1;
-                    MainGrid.ScrollIntoView(MainGrid.SelectedItem);
-                }
-            }
-        }
-
         private void DownButton_Click(object sender, RoutedEventArgs e)
         {
             if (MainGrid.SelectedItem != null)
