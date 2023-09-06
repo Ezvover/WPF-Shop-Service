@@ -257,6 +257,10 @@ namespace laba4
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             ToGrid();
+            FilterBOx.SelectedItem= null;
+            SearchText.Clear();
+            SearchText2.Clear();
+            SearchText3.Clear();
             MainGrid.SelectedIndex = 0; // Устанавливаем первый элемент как выбранный
         }
 

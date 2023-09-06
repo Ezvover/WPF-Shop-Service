@@ -162,9 +162,9 @@ namespace laba4
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((int.Parse(RateTextBox.Text) < 0) || (double.Parse(PriceTextBox.Text) < 0) || (int.Parse(AmountTextBox.Text) < 0))
+            if ((int.Parse(RateTextBox.Text) < 0) || (double.Parse(PriceTextBox.Text) < 0) || (int.Parse(AmountTextBox.Text) < 0) || string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(CategoryTextBox.Text))
             {
-                MessageBox.Show("Данные меньше нуля");
+                MessageBox.Show("Ошибка");
             }
             else
             {
